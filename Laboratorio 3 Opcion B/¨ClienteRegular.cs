@@ -11,5 +11,17 @@ namespace Laboratorio_3_Opcion_B
         public ClienteRegular(string nombre, string correo, string telefono) : base(nombre, correo, telefono)
         {
         }
+        public static void Registrar(List<Cliente> listaClientes)
+        {
+            Console.Clear();
+            Console.WriteLine("Ingrese el nombe del cliente.");
+            string nombre= Console.ReadLine(); 
+            Console.WriteLine("Ingrese el correo del cliente.");
+            string correo= Console.ReadLine();  
+            Console.WriteLine("Ingrese el número de teléfono del cliente.");
+            string telefono= Console.ReadLine();
+            ClienteRegular clienteRegular = new ClienteRegular(nombre, correo, telefono);
+            listaClientes.Add(clienteRegular);
+        }
     }
 }

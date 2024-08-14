@@ -7,16 +7,54 @@ bool menu = true;
 int opcion;
 while (menu)
 {
+    MostrarMenu();
     opcion=Convert.ToInt32(Console.ReadLine());
     switch (opcion)
     {
-
+        case 1:
+            {
+                ClienteRegular.Registrar(listaClientes);
+                break;
+            }
+        case 2:
+            {
+                break;
+            }
+        case 3:
+            {
+                break;
+            }
+        case 4:
+            {
+                break;
+            }
+        case 5:
+            {
+                break;
+            }
+        case 6:
+            {
+                break;
+            }
+        case 7:
+            {
+                break;
+            }
+        case 8:
+            {
+                break;
+            }
     }
 }
 static void MostrarMenu()
 {
-    Console.WriteLine("Registrar cliente regular.");
-    Console.WriteLine("Registrar cliente VIP.");
-    Console.WriteLine("");
-    Console.WriteLine();
+    Console.Clear();
+    Console.WriteLine("1. Registrar cliente regular.");
+    Console.WriteLine("2. Registrar cliente VIP.");
+    Console.WriteLine("3. Registrar reserva.");
+    Console.WriteLine("4. Mostrar detalles de clientes.");
+    Console.WriteLine("5. Mostrar detalles de reservas.");
+    Console.WriteLine("6. Buscar cliente por nombre.");
+    Console.WriteLine("7. Buscar reserva por número.");
+    Console.WriteLine("8. Salir.");
 }
