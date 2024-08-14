@@ -23,6 +23,7 @@ while (menu)
             }
         case 3:
             {
+                Reservas.Registar(listaReservas, listaClientes);
                 break;
             }
         case 4:
