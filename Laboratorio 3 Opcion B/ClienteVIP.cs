@@ -6,7 +6,22 @@ using System.Threading.Tasks;
 
 namespace Laboratorio_3_Opcion_B
 {
-    internal class ClienteVIP
+    internal class ClienteVIP : Cliente
     {
+        public ClienteVIP(string nombre, string correo, string telefono) : base(nombre, correo, telefono)
+        {
+        }
+        public static void Registrar(List<Cliente> listaClientes)
+        {
+            Console.Clear();
+            Console.WriteLine("Ingrese el nombre del cliente.");
+            string nombre= Console.ReadLine();
+            Console.WriteLine("Ingrese el correo del cliente.");
+            string correo= Console.ReadLine();  
+            Console.WriteLine("Ingrese el número de teléfono del cliente.");
+            string telefono= Console.ReadLine();
+            ClienteVIP clienteVIP= new ClienteVIP(nombre, correo, telefono);
+            listaClientes.Add(clienteVIP);
+        }
     }
 }
