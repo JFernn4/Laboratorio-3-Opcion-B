@@ -36,25 +36,63 @@ namespace Laboratorio_3_Opcion_B
             }
             else
             {
-                Console.WriteLine("Ingrese en el número de la reserva.");
-                int numero = Convert.ToInt32(Console.ReadLine());
-                Console.WriteLine("Ingrese la fecha de la reserva.");
-                string fecha = Console.ReadLine();
-                Console.WriteLine("Ingrese la hora de la reserva.");
-                string hora = Console.ReadLine();
-                Reservas reserva = new Reservas(numero, fecha, hora, cliente);
-                Console.WriteLine("Ingrese cuántos platos va a reservar.");
-                int cantidadPlatos = Convert.ToInt32(Console.ReadLine());
-                for (int i = 0; i < cantidadPlatos; i++)
+                int numero = 0;
+                bool trycatch = true;
+                int cantidadPlatos = 0;
+                string fecha= "vacío";
+                string hora = "vacío";
+                while (trycatch)
                 {
-                    Console.WriteLine($"Ingrese el nombre del plato {i + 1}.");
-                    string nombrePlato = Console.ReadLine();
-                    Console.WriteLine($"Ingrese el precio del plato {i + 2}.");
-                    double precio = Convert.ToDouble(Console.ReadLine());
-                    Platos plato = new Platos(nombrePlato, precio);
-                    reserva.Platos.Add(plato);
+                    try
+                    {
+                        if (numero == 0)
+                        {
+                            Console.WriteLine("Ingrese en el número de la reserva.");
+                            numero = Convert.ToInt32(Console.ReadLine());
+                        }
+                        if (fecha == "vacío")
+                        {
+                            Console.WriteLine("Ingrese la fecha de la reserva.");
+                            fecha = Console.ReadLine();
+                        }
+                        if (hora == "vacío")
+                        {
+                            Console.WriteLine("Ingrese la hora de la reserva.");
+                            hora = Console.ReadLine();
+                        }
+                        Reservas reserva = new Reservas(numero, fecha, hora, cliente);
+                        if (cantidadPlatos == 0)
+                        {
+                            Console.WriteLine("Ingrese cuántos platos va a reservar.");
+                            cantidadPlatos = Convert.ToInt32(Console.ReadLine());
+                        }
+                        double precio = 0;
+                        for (int i = 0; i < cantidadPlatos; i++)
+                        {
+                            bool precioValido = true;
+                            while (precioValido)
+                            {
+                                try
+                                {
+                                    Console.WriteLine($"Ingrese el precio del plato {i + 1}.");
+                                    precio = Convert.ToDouble(Console.ReadLine());
+                                    precioValido = false;
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.Clear(); Console.WriteLine("Ingrese un valor válido."); Console.ReadKey();
+                                }
+                            }
+                            Console.WriteLine($"Ingrese el nombre del plato {i + 1}.");
+                            string nombrePlato = Console.ReadLine();
+                            Platos plato = new Platos(nombrePlato, precio);
+                            reserva.Platos.Add(plato);
+                        }
+                        listaReservas.Add(reserva);
+                        trycatch = false;
+                    }
+                    catch (Exception ex) { Console.Clear(); Console.WriteLine(ex.Message); Console.ReadKey(); }
                 }
-                listaReservas.Add(reserva);
             }
         }
         public static double CalcularTotal(Reservas reservas)
@@ -78,10 +116,12 @@ namespace Laboratorio_3_Opcion_B
             foreach (Reservas reserva in listaReservas)
             {
                 Console.WriteLine($"Cliente: {reserva.Cliente.Nombre}. Número de pedido: {reserva.Numero}. Fecha: {reserva.Fecha}. Hora: {reserva.Hora}.");
+   
                 Console.WriteLine("Lista de productos");
                 foreach (Platos platos in reserva.Platos)
                 {
                     Console.WriteLine($"Nombre: {platos.NombrePlato}. Precio: {platos.Precio}.");
+                }
                     if (reserva.Cliente is ClienteVIP)
                     {
                         Console.WriteLine($"Total: Q.{CalcularTotal(reserva)} (15% de descuento).");
@@ -89,14 +129,14 @@ namespace Laboratorio_3_Opcion_B
                     else
                     {
                         Console.WriteLine($"Total: Q.{CalcularTotal(reserva)}.");
-                    }
-                }
+                    }              
             }
             Console.ReadKey();
         }
         public static void Buscar(List<Reservas> listaReservas, List<Cliente> listaClientes)
         {
-            Console.WriteLine("Ingrese el número de pedido que desea buscar.");
+            Console.Clear();
+            Console.WriteLine("Ingrese el número de reserva que desea buscar.");
             int buscarReservas=Convert.ToInt32(Console.ReadLine());
             Reservas buscar= listaReservas.Find(p=>p.Numero==buscarReservas);
             if (buscar == null)
@@ -113,15 +153,15 @@ namespace Laboratorio_3_Opcion_B
                     foreach (Platos platos in buscar.Platos)
                     {
                         Console.WriteLine($"Nombre: {platos.NombrePlato}. Precio: {platos.Precio}.");
+                    }    
                         if (buscar.Cliente is ClienteVIP)
                         {
                             Console.WriteLine($"Total: Q.{CalcularTotal(buscar)} (15% de descuento).");
                         }
-                        else
+                        else if (buscar.Cliente is ClienteRegular)
                         {
                             Console.WriteLine($"Total: Q.{CalcularTotal(buscar)}.");
                         }
-                    }
                 }
             }
             Console.ReadKey ();

@@ -14,7 +14,7 @@ namespace Laboratorio_3_Opcion_B
         public static void Registrar(List<Cliente> listaClientes)
         {
             Console.Clear();
-            Console.WriteLine("Ingrese el nombe del cliente.");
+            Console.WriteLine("Ingrese el nombre del cliente.");
             string nombre= Console.ReadLine(); 
             Console.WriteLine("Ingrese el correo del cliente.");
             string correo= Console.ReadLine();  

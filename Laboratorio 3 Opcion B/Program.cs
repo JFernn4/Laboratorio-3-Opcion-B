@@ -7,51 +7,55 @@ bool menu = true;
 int opcion;
 while (menu)
 {
-    MostrarMenu();
-    opcion=Convert.ToInt32(Console.ReadLine());
-    switch (opcion)
+    try
     {
-        case 1:
-            {
-                ClienteRegular.Registrar(listaClientes);
-                break;
-            }
-        case 2:
-            {
-                ClienteVIP.Registrar(listaClientes);
-                break;
-            }
-        case 3:
-            {
-                Reservas.Registar(listaReservas, listaClientes);
-                break;
-            }
-        case 4:
-            {
-                Cliente.MostrarDetalles(listaClientes);
-                break;
-            }
-        case 5:
-            {
-                Reservas.MostrarDetalles(listaReservas,listaClientes);
-                break;
-            }
-        case 6:
-            {
-                Cliente.Buscar(listaClientes);
-                break;
-            }
-        case 7:
-            {
-                Reservas.Buscar(listaReservas,listaClientes);
-                break;
-            }
-        case 8:
-            {
-                menu = false;
-                break;
-            }
+        MostrarMenu();
+        opcion = Convert.ToInt32(Console.ReadLine());
+        switch (opcion)
+        {
+            case 1:
+                {
+                    ClienteRegular.Registrar(listaClientes);
+                    break;
+                }
+            case 2:
+                {
+                    ClienteVIP.Registrar(listaClientes);
+                    break;
+                }
+            case 3:
+                {
+                    Reservas.Registar(listaReservas, listaClientes);
+                    break;
+                }
+            case 4:
+                {
+                    Cliente.MostrarDetalles(listaClientes);
+                    break;
+                }
+            case 5:
+                {
+                    Reservas.MostrarDetalles(listaReservas, listaClientes);
+                    break;
+                }
+            case 6:
+                {
+                    Cliente.Buscar(listaClientes);
+                    break;
+                }
+            case 7:
+                {
+                    Reservas.Buscar(listaReservas, listaClientes);
+                    break;
+                }
+            case 8:
+                {
+                    menu = false;
+                    break;
+                }
+        }
     }
+    catch (Exception ex) { Console.Clear(); Console.WriteLine($"Ingrese un número del 1 al 8. "+ex.Message); Console.ReadKey(); }
 }
 static void MostrarMenu()
 {
