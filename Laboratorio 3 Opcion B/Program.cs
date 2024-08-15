@@ -33,18 +33,22 @@ while (menu)
             }
         case 5:
             {
+                Reservas.MostrarDetalles(listaReservas,listaClientes);
                 break;
             }
         case 6:
             {
+                Cliente.Buscar(listaClientes);
                 break;
             }
         case 7:
             {
+                Reservas.Buscar(listaReservas,listaClientes);
                 break;
             }
         case 8:
             {
+                menu = false;
                 break;
             }
     }

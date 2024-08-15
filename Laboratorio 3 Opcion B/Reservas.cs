@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace Laboratorio_3_Opcion_B
 {
@@ -55,6 +56,75 @@ namespace Laboratorio_3_Opcion_B
                 }
                 listaReservas.Add(reserva);
             }
+        }
+        public static double CalcularTotal(Reservas reservas)
+        {
+            double descuento = 0;
+            double total = reservas.Platos.Sum(platos => platos.Precio);
+            if (reservas.Cliente is ClienteVIP)
+            {
+                descuento = total * 0.15;
+                total = total - descuento;
+            }
+            else if (reservas.Cliente is ClienteRegular)
+            {
+                total = total;
+            }
+            return total;
+        }
+        public static void MostrarDetalles(List<Reservas> listaReservas, List<Cliente> listaClientes)
+        {
+            Console.Clear();
+            foreach (Reservas reserva in listaReservas)
+            {
+                Console.WriteLine($"Cliente: {reserva.Cliente.Nombre}. Número de pedido: {reserva.Numero}. Fecha: {reserva.Fecha}. Hora: {reserva.Hora}.");
+                Console.WriteLine("Lista de productos");
+                foreach (Platos platos in reserva.Platos)
+                {
+                    Console.WriteLine($"Nombre: {platos.NombrePlato}. Precio: {platos.Precio}.");
+                    if (reserva.Cliente is ClienteVIP)
+                    {
+                        Console.WriteLine($"Total: Q.{CalcularTotal(reserva)} (15% de descuento).");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Total: Q.{CalcularTotal(reserva)}.");
+                    }
+                }
+            }
+            Console.ReadKey();
+        }
+        public static void Buscar(List<Reservas> listaReservas, List<Cliente> listaClientes)
+        {
+            Console.WriteLine("Ingrese el número de pedido que desea buscar.");
+            int buscarReservas=Convert.ToInt32(Console.ReadLine());
+            Reservas buscar= listaReservas.Find(p=>p.Numero==buscarReservas);
+            if (buscar == null)
+            {
+                Console.WriteLine("No se ha encontrado el pedido.");
+                Console.ReadKey();
+            }
+            else
+            {
+                if (buscar.Cliente is ClienteRegular clienteRegular)
+                {
+                    Console.WriteLine($"Cliente: {buscar.Cliente.Nombre}. Número de pedido: {buscar.Numero}. Fecha: {buscar.Fecha}. Hora: {buscar.Hora}.");
+                    Console.WriteLine($"Lista de productos");
+                    foreach (Platos platos in buscar.Platos)
+                    {
+                        Console.WriteLine($"Nombre: {platos.NombrePlato}. Precio: {platos.Precio}.");
+                        if (buscar.Cliente is ClienteVIP)
+                        {
+                            Console.WriteLine($"Total: Q.{CalcularTotal(buscar)} (15% de descuento).");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Total: Q.{CalcularTotal(buscar)}.");
+                        }
+                    }
+                }
+            }
+            Console.ReadKey ();
         }
     }
 }
